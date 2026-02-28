@@ -1,9 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { messages, type MessageItem } from "./data";
 import "./App.css";
 
 function App() {
   const [selected, setSelected] = useState<MessageItem | null>(null);
+
+  useEffect(() => {
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) {
+      meta.setAttribute("content", selected ? selected.color : "#000000");
+    }
+  }, [selected]);
 
   const handleSelect = (item: MessageItem) => {
     setSelected(item);
